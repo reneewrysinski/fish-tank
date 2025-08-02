@@ -74,7 +74,8 @@ main.o: ../main.c \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_vref.h \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_wwdt.h \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_interrupt.h \
- /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_systick.h
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_systick.h \
+ /Users/reneewrysinski/Documents/GitHub/fish-tank/image_frames.h
 
 ti_msp_dl_config.h:
 
@@ -223,3 +224,5 @@ ti_msp_dl_config.h:
 /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_interrupt.h:
 
 /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_systick.h:
+
+/Users/reneewrysinski/Documents/GitHub/fish-tank/image_frames.h:
