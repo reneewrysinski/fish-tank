@@ -25,7 +25,7 @@ static inline void build_encode_lut(void) {
 }
 
 // 0 = off, 255 = full brightness
-static volatile uint8_t g_brightness = 32;  // start at ~50%
+static volatile uint8_t g_brightness = 16;  // start at ~50%
 
 // Fast 8-bit scale with rounding: (v * b) / 255
 static inline uint8_t scale8(uint8_t v, uint8_t b)
@@ -86,6 +86,21 @@ static const uint8_t* const FISH_SLEEP_FRAMES[] = {
     FISH_SLEEP_20, FISH_SLEEP_21, FISH_SLEEP_22
 };
 _Static_assert(sizeof(FISH_SLEEP_FRAMES)/sizeof(FISH_SLEEP_FRAMES[0]) == FISH_SLEEP_FRAME_COUNT, "frame count mismatch");
+
+static const uint8_t* const FISH_SWIM_FRAMES[] = {
+    FISH_SWIM_0, FISH_SWIM_1, FISH_SWIM_2, FISH_SWIM_3, FISH_SWIM_4,
+    FISH_SWIM_5, FISH_SWIM_6, FISH_SWIM_7, FISH_SWIM_8, FISH_SWIM_9,
+    FISH_SWIM_10, FISH_SWIM_11, FISH_SWIM_12, FISH_SWIM_13, FISH_SWIM_14,
+    FISH_SWIM_15, FISH_SWIM_16, FISH_SWIM_17, FISH_SWIM_18, FISH_SWIM_19
+};
+_Static_assert(sizeof(FISH_SWIM_FRAMES)/sizeof(FISH_SWIM_FRAMES[0]) == FISH_SWIM_FRAME_COUNT, "frame count mismatch");
+
+static const uint8_t* const FISH_FEED_FRAMES[] = {
+    FISH_FEED_0, FISH_FEED_1, FISH_FEED_2, FISH_FEED_3, FISH_FEED_4,
+    FISH_FEED_5, FISH_FEED_6, FISH_FEED_7, FISH_FEED_8, FISH_FEED_9,
+    FISH_FEED_10, FISH_FEED_11, FISH_FEED_12
+};
+_Static_assert(sizeof(FISH_FEED_FRAMES)/sizeof(FISH_FEED_FRAMES[0]) == FISH_FEED_FRAME_COUNT, "frame count mismatch");
 
 
 // Copy an RGB888 image (R,G,B order) into image_grb[] honoring serpentine mapping.
@@ -179,7 +194,7 @@ int main(void)
 
     while (1) {
         // Copy RGB888 → image_grb (handles centering/cropping if your loader does)
-        load_image_rgb888(FISH_SLEEP_FRAMES[frame], IMG_W, IMG_H);
+        load_image_rgb888(FISH_SWIM_FRAMES[frame], IMG_W, IMG_H);
 
         // Map+encode to SPI bytes
         build_frame_from_image();
@@ -191,7 +206,7 @@ int main(void)
         delay_cycles(frame_delay_cycles);
 
         // Next frame
-        frame = (frame + 1) % FISH_SLEEP_FRAME_COUNT;
+        frame = (frame + 1) % FISH_SWIM_FRAME_COUNT;
     }
 }
 void SPI_0_INST_IRQHandler(void)
