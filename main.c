@@ -102,6 +102,9 @@ static const uint8_t* const FISH_FEED_FRAMES[] = {
 };
 _Static_assert(sizeof(FISH_FEED_FRAMES)/sizeof(FISH_FEED_FRAMES[0]) == FISH_FEED_FRAME_COUNT, "frame count mismatch");
 
+void show_swim();
+void show_feed();
+void show_sleep();
 
 // Copy an RGB888 image (R,G,B order) into image_grb[] honoring serpentine mapping.
 // If the source image (srcW×srcH) differs from panel (W×H), this will center and crop.
@@ -188,10 +191,26 @@ int main(void)
 {
     SYSCFG_DL_init();
     build_encode_lut();
+    const uint32_t frame_delay_cycles = 4000000; // adjust speed
+    while (1) {
+        show_swim();
+        // Wait for a cycle and a half(ish)
+        delay_cycles(frame_delay_cycles * (FISH_SWIM_FRAME_COUNT + 14));
+        show_feed();
+        // Wait for end of animation
+        delay_cycles(frame_delay_cycles * (FISH_FEED_FRAME_COUNT));
+        show_swim();
+        // Wait for a cycle and a half(ish)
+        delay_cycles(frame_delay_cycles * (FISH_SWIM_FRAME_COUNT + 15));
+        show_swim();
+        // Wait for end of animation
+        delay_cycles(frame_delay_cycles * (FISH_SLEEP_FRAME_COUNT));
 
+    }
+}
+void show_swim() {
     uint32_t frame = 0;
     const uint32_t frame_delay_cycles = 4000000; // adjust speed
-
     while (1) {
         // Copy RGB888 → image_grb (handles centering/cropping if your loader does)
         load_image_rgb888(FISH_SWIM_FRAMES[frame], IMG_W, IMG_H);
@@ -207,6 +226,48 @@ int main(void)
 
         // Next frame
         frame = (frame + 1) % FISH_SWIM_FRAME_COUNT;
+    }
+}
+
+void show_feed() {
+    uint32_t frame = 0;
+    const uint32_t frame_delay_cycles = 4000000; // adjust speed
+    while (1) {
+        // Copy RGB888 → image_grb (handles centering/cropping if your loader does)
+        load_image_rgb888(FISH_FEED_FRAMES[frame], IMG_W, IMG_H);
+
+        // Map+encode to SPI bytes
+        build_frame_from_image();
+
+        // Send once, then reset/latch delay happens inside send_frame()
+        send_frame(frame_encoded, N_PIXELS * 9);
+
+        // Hold frame
+        delay_cycles(frame_delay_cycles);
+
+        // Next frame
+        frame = (frame + 1) % FISH_FEED_FRAME_COUNT;
+    }
+}
+
+void show_sleep() {
+    uint32_t frame = 0;
+    const uint32_t frame_delay_cycles = 4000000; // adjust speed
+    while (1) {
+        // Copy RGB888 → image_grb (handles centering/cropping if your loader does)
+        load_image_rgb888(FISH_SLEEP_FRAMES[frame], IMG_W, IMG_H);
+
+        // Map+encode to SPI bytes
+        build_frame_from_image();
+
+        // Send once, then reset/latch delay happens inside send_frame()
+        send_frame(frame_encoded, N_PIXELS * 9);
+
+        // Hold frame
+        delay_cycles(frame_delay_cycles);
+
+        // Next frame
+        frame = (frame + 1) % FISH_SLEEP_FRAME_COUNT;
     }
 }
 void SPI_0_INST_IRQHandler(void)
