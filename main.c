@@ -7,28 +7,6 @@
 #include "buttons.h"
 #include "notes.h"
 
-// test grid main
-//int main(void)
-//{
-//    SYSCFG_DL_init();
-//
-//    build_encode_lut();
-//    load_image_rgb(IMG_RGB888_HALF, IMG_W, IMG_H);
-//    build_frame_from_image();
-//    send_frame(frame_encoded, N_PIXELS * 9);
-//
-//    while (1) {
-//        // transmit full image once
-//        send_frame(frame_encoded, N_PIXELS * 9);
-//
-//        // if static image, can pause or loop
-//        // for animation, update image_grb[], rebuild, and send again
-//        delay_cycles(400000); // simple pause between frames
-//    }
-//}
-
-// actual main
-
 // states:
 // 0 = start up (only happens on startup)
 // 1 = swim (default state)
@@ -137,6 +115,25 @@ int main(void)
 //    }
 }
 
+// test grid main
+//int main(void)
+//{
+//    SYSCFG_DL_init();
+//
+//    build_encode_lut();
+//    load_image_rgb(IMG_RGB888_HALF, IMG_W, IMG_H);
+//    build_frame_from_image();
+//    send_frame(frame_encoded, N_PIXELS * 9);
+//
+//    while (1) {
+//        // transmit full image once
+//        send_frame(frame_encoded, N_PIXELS * 9);
+//
+//        // if static image, can pause or loop
+//        // for animation, update image_grb[], rebuild, and send again
+//        delay_cycles(400000); // simple pause between frames
+//    }
+//}
 
 void SPI_0_INST_IRQHandler(void)
 {
