@@ -1,11 +1,6 @@
 #pragma once
 #define IMG_W 16
 #define IMG_H 16
-#define FISH_SLEEP_FRAME_COUNT 23
-#define FISH_SWIM_FRAME_COUNT 20
-#define FISH_FEED_FRAME_COUNT 13
-#define FISH_SLEEPING_FRAME_COUNT 2
-#define FISH_GAME_FRAME_COUNT 23
 
 // 16x16 checkerboard: red (255,0,0) and green (0,255,0)
 static const uint8_t IMG_RGB888[IMG_W * IMG_H * 3] = {
