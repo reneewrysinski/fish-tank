@@ -41,6 +41,10 @@ int main(void)
     InitializeProcessor();
     InitializeTimerG0();
     InitializeGPIO();
+    InitializeTimerA1_PWM();
+    // let the buzzer run for 0.1 s just so we know it's there!
+    delay_cycles(1600000);
+    TIMA1->COUNTERREGS.CTRCTL &= ~(GPTIMER_CTRCTL_EN_ENABLED); // Disable the buzzer
     NVIC_EnableIRQ(TIMG0_INT_IRQn); // Enable the timer interrupt
     TIMG0->COUNTERREGS.LOAD = 326; // Set timer to N-1 for ten milliseconds
     TIMG0->COUNTERREGS.CTRCTL |= (GPTIMER_CTRCTL_EN_ENABLED);
