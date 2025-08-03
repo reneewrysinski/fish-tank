@@ -9,10 +9,14 @@ GEN_CMDS__FLAG := -Wl,-l"./device_linker.cmd"
 
 ORDERED_OBJS += \
 "./animations.o" \
+"./buttons.o" \
 "./display.o" \
+"./effects.o" \
+"./lab6_helper.o" \
 "./main.o" \
 "./ti_msp_dl_config.o" \
 "./startup_mspm0g350x_ticlang.o" \
+"./simon_random.o" \
 $(GEN_CMDS__FLAG) \
 -Wl,-ldevice.cmd.genlibs \
 -Wl,-llibc.a \
@@ -143,8 +147,8 @@ fish-tank.out: $(OBJS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "animations.o" "display.o" "main.o" "ti_msp_dl_config.o" "startup_mspm0g350x_ticlang.o" 
-	-$(RM) "animations.d" "display.d" "main.d" "ti_msp_dl_config.d" "startup_mspm0g350x_ticlang.d" 
+	-$(RM) "animations.o" "buttons.o" "display.o" "effects.o" "lab6_helper.o" "main.o" "ti_msp_dl_config.o" "startup_mspm0g350x_ticlang.o" "simon_random.o" 
+	-$(RM) "animations.d" "buttons.d" "display.d" "effects.d" "lab6_helper.d" "main.d" "ti_msp_dl_config.d" "startup_mspm0g350x_ticlang.d" "simon_random.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
