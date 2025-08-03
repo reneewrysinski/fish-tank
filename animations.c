@@ -39,6 +39,7 @@ void show_swim_fast(uint32_t loops){ play(FISH_SWIM_FRAMES,  get_num_frames(FISH
 void show_feed(uint32_t loops){ play(FISH_FEED_FRAMES,  get_num_frames(FISH_FEED_FRAMES),  loops, 4000000); }
 void show_sleep(uint32_t loops){ play(FISH_SLEEP_FRAMES, get_num_frames(FISH_SLEEP_FRAMES), loops, 4000000); }
 void show_sleeping(uint32_t loops){ play(FISH_SLEEPING_FRAMES, get_num_frames(FISH_SLEEPING_FRAMES), loops, 4000000); }
+void show_bubble(uint32_t loops){ play(FISH_BUBBLE_FRAMES, get_num_frames(FISH_BUBBLE_FRAMES), loops, 4000000); }
 void show_intro(uint32_t loops){ play(FISH_INTRO_FRAMES,  get_num_frames(FISH_INTRO_FRAMES),  loops, 20000000); }
 
 

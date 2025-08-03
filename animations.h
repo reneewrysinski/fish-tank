@@ -9,8 +9,14 @@ static const uint8_t* FISH_SLEEP_FRAMES[] = {
     FISH_SLEEP_0, FISH_SLEEP_1, FISH_SLEEP_2, FISH_SLEEP_3, FISH_SLEEP_4,
     FISH_SLEEP_5, FISH_SLEEP_6, FISH_SLEEP_7, FISH_SLEEP_8, FISH_SLEEP_9,
     FISH_SLEEP_10, FISH_SLEEP_11, FISH_SLEEP_12, FISH_SLEEP_13, FISH_SLEEP_14,
-    FISH_SLEEP_15, FISH_SLEEP_16, FISH_SLEEP_17, FISH_SLEEP_18, FISH_SLEEP_19,
-    FISH_SLEEP_20, FISH_SLEEP_21, FISH_SLEEP_22, NULL
+    FISH_SLEEP_15, FISH_SLEEP_16, //FISH_SLEEP_17, FISH_SLEEP_18,
+    // removed bubbles to make the sound play at a better time
+    // FISH_SLEEP_19, FISH_SLEEP_20, FISH_SLEEP_21, FISH_SLEEP_22,
+    NULL
+};
+
+static const uint8_t* FISH_BUBBLE_FRAMES[] = {
+    FISH_SLEEP_17, FISH_SLEEP_18, NULL
 };
 
 static const uint8_t* FISH_SLEEPING_FRAMES[] = {
@@ -98,5 +104,6 @@ void show_swim_fast(uint32_t loops);
 void show_feed(uint32_t loops);
 void show_sleep(uint32_t loops);
 void show_sleeping(uint32_t loops);
+void show_bubble(uint32_t loops);
 void show_intro(uint32_t loops);
 int play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles);

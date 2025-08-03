@@ -5,6 +5,7 @@
 #include "lab6_helper.h"
 #include "effects.h"
 #include "buttons.h"
+#include "notes.h"
 
 // test grid main
 //int main(void)
@@ -107,9 +108,16 @@ int main(void)
                 break;
             case 5: // sleep (sleep animation happens once then stays in sleeping animation until any button pressed)
                 show_sleep(1);
+                play_note(NOTE_F_4, 20);
+                play_note(NOTE_D_4, 20);
+                play_note(NOTE_AS_3, 30);
+                show_bubble(1);
                 while(1) {
                     show_sleeping(1);
                     if (any_button_on()) {
+                        play_note(NOTE_AS_3, 20);
+                        play_note(NOTE_D_4, 20);
+                        play_note(NOTE_F_4, 30);
                         state = 1;
                         break;
                     }
