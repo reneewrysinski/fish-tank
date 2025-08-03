@@ -15,6 +15,8 @@
 /*  */
 // -------------------------------------
 #include "simon_random.h"
+#include "lab6_helper.h"
+#include <ti/devices/msp/msp.h>
 
 uint16_t lfsr; // private variable which holds the state of the random number generation system
 
