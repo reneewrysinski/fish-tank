@@ -1,6 +1,7 @@
 # FIXED
 
-main.o: ../main.c \
+animations.o: ../animations.c \
+ /Users/reneewrysinski/Documents/GitHub/fish-tank/animations.h \
  ti_msp_dl_config.h \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/devices/msp/msp.h \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/devices/DeviceFamily.h \
@@ -76,8 +77,9 @@ main.o: ../main.c \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_interrupt.h \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_systick.h \
  /Users/reneewrysinski/Documents/GitHub/fish-tank/image_frames.h \
- /Users/reneewrysinski/Documents/GitHub/fish-tank/animations.h \
  /Users/reneewrysinski/Documents/GitHub/fish-tank/display.h
+
+/Users/reneewrysinski/Documents/GitHub/fish-tank/animations.h:
 
 ti_msp_dl_config.h:
 
@@ -228,7 +230,5 @@ ti_msp_dl_config.h:
 /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_systick.h:
 
 /Users/reneewrysinski/Documents/GitHub/fish-tank/image_frames.h:
-
-/Users/reneewrysinski/Documents/GitHub/fish-tank/animations.h:
 
 /Users/reneewrysinski/Documents/GitHub/fish-tank/display.h:
