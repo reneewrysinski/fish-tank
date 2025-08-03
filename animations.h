@@ -30,6 +30,14 @@ static const uint8_t* const FISH_FEED_FRAMES[] = {
     FISH_FEED_10, FISH_FEED_11, FISH_FEED_12
 };
 
+static const uint8_t* const FISH_GAME_FRAMES[] = {
+    FISH_GAME_0, FISH_GAME_1, FISH_GAME_2, FISH_GAME_3, FISH_GAME_4,
+    FISH_GAME_5, FISH_GAME_6, FISH_GAME_7, FISH_GAME_8, FISH_GAME_9,
+    FISH_GAME_10, FISH_GAME_11, FISH_GAME_12, FISH_GAME_13, FISH_GAME_14,
+    FISH_GAME_15, FISH_GAME_16, FISH_GAME_17, FISH_GAME_18, FISH_GAME_19,
+    FISH_GAME_20, FISH_GAME_21, FISH_GAME_22
+};
+
 void show_swim(uint32_t loops);
 void show_feed(uint32_t loops);
 void show_sleep(uint32_t loops);
