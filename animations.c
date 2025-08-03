@@ -35,12 +35,13 @@ void play(const uint8_t* frames[], uint32_t count,
 
 
 void show_swim(uint32_t loops){ play(FISH_SWIM_FRAMES,  get_num_frames(FISH_SWIM_FRAMES),  loops, 4000000); }
+void show_swim_fast(uint32_t loops){ play(FISH_SWIM_FRAMES,  get_num_frames(FISH_SWIM_FRAMES),  loops, 2000000); }
 void show_feed(uint32_t loops){ play(FISH_FEED_FRAMES,  get_num_frames(FISH_FEED_FRAMES),  loops, 4000000); }
 void show_sleep(uint32_t loops){ play(FISH_SLEEP_FRAMES, get_num_frames(FISH_SLEEP_FRAMES), loops, 4000000); }
 void show_sleeping(uint32_t loops){ play(FISH_SLEEPING_FRAMES, get_num_frames(FISH_SLEEPING_FRAMES), loops, 4000000); }
 
 
-void play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles) {
+int play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles) {
     // setup type stuff
     int seed = GenerateRandomNumber();
     srand(seed);
@@ -159,5 +160,11 @@ void play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles) {
     SW2_pressed = button_on(SW2);
     SW3_pressed = button_on(SW3);
     SW4_pressed = button_on(SW4);
+    if (SW1_pressed || SW2_pressed) { // either right button pressed: return 1 to keep playing
+        return 1;
+    }
+    if (SW3_pressed || SW4_pressed) { // either left button pressed: return 1 to exit to home
+        return 0;
+    }
 
 }
