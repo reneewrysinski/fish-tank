@@ -38,6 +38,54 @@ static const uint8_t* const FISH_GAME_FRAMES[] = {
     FISH_GAME_20, FISH_GAME_21, FISH_GAME_22
 };
 
+static const uint8_t* const GAME_INTRO[] = {
+    FISH_GAME_0, FISH_GAME_1
+};
+
+static const uint8_t* const GAME_HIDE_Y[] = {
+    FISH_GAME_2
+};
+
+static const uint8_t* const GAME_HIDE_P[] = {
+    FISH_GAME_3
+};
+
+static const uint8_t* const GAME_HIDE_G[] = {
+    FISH_GAME_4
+};
+
+static const uint8_t* const GAME_HIDE_R[] = {
+    FISH_GAME_5
+};
+
+static const uint8_t* const GAME_WAVE[] = {
+    FISH_GAME_6, FISH_GAME_7, FISH_GAME_8
+};
+
+static const uint8_t* const GAME_P_WIN[] = {
+    FISH_GAME_10, FISH_GAME_11, FISH_GAME_12
+};
+
+static const uint8_t* const GAME_G_WIN[] = {
+    FISH_GAME_13, FISH_GAME_14, FISH_GAME_15
+};
+
+static const uint8_t* const GAME_R_WIN[] = {
+    FISH_GAME_8, FISH_GAME_16, FISH_GAME_17
+};
+
+static const uint8_t* const GAME_Y_WIN[] = {
+    FISH_GAME_8, FISH_GAME_18, FISH_GAME_19
+};
+
+static const uint8_t* const GAME_WIN[] = {
+    FISH_GAME_20
+};
+
+static const uint8_t* const GAME_LOSE[] = {
+    FISH_GAME_21, FISH_GAME_22
+};
+
 void show_swim(uint32_t loops);
 void show_feed(uint32_t loops);
 void show_sleep(uint32_t loops);
