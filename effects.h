@@ -1,10 +1,10 @@
 #ifndef effects_h
 #define effects_h
 
-extern int transmissionComplete;
+//extern int transmissionComplete;
 extern int timerTicked;
-extern int idx;
-extern uint16_t txPacket[];
+//extern int idx;
+//extern uint16_t txPacket[];
 extern int message_len;
 
 void pause();
