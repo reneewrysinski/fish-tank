@@ -14,7 +14,7 @@ static const uint8_t* FISH_SLEEP_FRAMES[] = {
 };
 
 static const uint8_t* FISH_SLEEPING_FRAMES[] = {
-    FISH_SLEEP_19, FISH_SLEEP_20, FISH_SLEEP_21, FISH_SLEEP_22, NULL
+    FISH_SLEEP_21, FISH_SLEEP_22, NULL
 };
 
 static const uint8_t* FISH_SWIM_FRAMES[] = {
