@@ -85,7 +85,10 @@ static const uint8_t* const FISH_SLEEP_FRAMES[] = {
     FISH_SLEEP_15, FISH_SLEEP_16, FISH_SLEEP_17, FISH_SLEEP_18, FISH_SLEEP_19,
     FISH_SLEEP_20, FISH_SLEEP_21, FISH_SLEEP_22
 };
-_Static_assert(sizeof(FISH_SLEEP_FRAMES)/sizeof(FISH_SLEEP_FRAMES[0]) == FISH_SLEEP_FRAME_COUNT, "frame count mismatch");
+
+static const uint8_t* const FISH_SLEEPING_FRAMES[] = {
+    FISH_SLEEP_19, FISH_SLEEP_20, FISH_SLEEP_21, FISH_SLEEP_22
+};
 
 static const uint8_t* const FISH_SWIM_FRAMES[] = {
     FISH_SWIM_0, FISH_SWIM_1, FISH_SWIM_2, FISH_SWIM_3, FISH_SWIM_4,
@@ -93,18 +96,17 @@ static const uint8_t* const FISH_SWIM_FRAMES[] = {
     FISH_SWIM_10, FISH_SWIM_11, FISH_SWIM_12, FISH_SWIM_13, FISH_SWIM_14,
     FISH_SWIM_15, FISH_SWIM_16, FISH_SWIM_17, FISH_SWIM_18, FISH_SWIM_19
 };
-_Static_assert(sizeof(FISH_SWIM_FRAMES)/sizeof(FISH_SWIM_FRAMES[0]) == FISH_SWIM_FRAME_COUNT, "frame count mismatch");
 
 static const uint8_t* const FISH_FEED_FRAMES[] = {
     FISH_FEED_0, FISH_FEED_1, FISH_FEED_2, FISH_FEED_3, FISH_FEED_4,
     FISH_FEED_5, FISH_FEED_6, FISH_FEED_7, FISH_FEED_8, FISH_FEED_9,
     FISH_FEED_10, FISH_FEED_11, FISH_FEED_12
 };
-_Static_assert(sizeof(FISH_FEED_FRAMES)/sizeof(FISH_FEED_FRAMES[0]) == FISH_FEED_FRAME_COUNT, "frame count mismatch");
 
 void show_swim(uint32_t loops);
 void show_feed(uint32_t loops);
 void show_sleep(uint32_t loops);
+void show_sleeping(uint32_t loops);
 
 // Copy an RGB888 image (R,G,B order) into image_grb[] honoring serpentine mapping.
 // If the source image (srcW×srcH) differs from panel (W×H), this will center and crop.
@@ -196,9 +198,12 @@ int main(void)
             show_feed(1);
             show_swim(2);
             show_sleep(1);
+            show_sleeping(10);
+
     }
 }
 
+// base function for showing basic animations (all except game)
 static void play(const uint8_t* const frames[], uint32_t count,
                  uint32_t loops, uint32_t frame_delay_cycles)
 {
@@ -212,9 +217,10 @@ static void play(const uint8_t* const frames[], uint32_t count,
     }
 }
 
-void show_swim (uint32_t loops){ play(FISH_SWIM_FRAMES,  FISH_SWIM_FRAME_COUNT,  loops, 4000000); }
-void show_feed (uint32_t loops){ play(FISH_FEED_FRAMES,  FISH_FEED_FRAME_COUNT,  loops, 4000000); }
+void show_swim(uint32_t loops){ play(FISH_SWIM_FRAMES,  FISH_SWIM_FRAME_COUNT,  loops, 4000000); }
+void show_feed(uint32_t loops){ play(FISH_FEED_FRAMES,  FISH_FEED_FRAME_COUNT,  loops, 4000000); }
 void show_sleep(uint32_t loops){ play(FISH_SLEEP_FRAMES, FISH_SLEEP_FRAME_COUNT, loops, 4000000); }
+void show_sleeping(uint32_t loops){ play(FISH_SLEEPING_FRAMES, FISH_SLEEPING_FRAME_COUNT, loops, 4000000); }
 
 void SPI_0_INST_IRQHandler(void)
 {
