@@ -33,7 +33,53 @@ effects.o: ../effects.c \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/devices/msp/peripherals/m0p/sysctl/hw_sysctl_mspm0g1x0x_g3x0x.h \
  /Users/reneewrysinski/Documents/GitHub/fish-tank/lab6_helper.h \
  /Users/reneewrysinski/Documents/GitHub/fish-tank/effects.h \
- /Users/reneewrysinski/Documents/GitHub/fish-tank/buttons.h
+ /Users/reneewrysinski/Documents/GitHub/fish-tank/buttons.h \
+ /Users/reneewrysinski/Documents/GitHub/fish-tank/image_frames.h \
+ /Users/reneewrysinski/Documents/GitHub/fish-tank/display.h \
+ ti_msp_dl_config.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/driverlib.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_adc12.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_common.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_factoryregion.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_core.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_aes.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_aesadv.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_comp.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_crc.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_crcp.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_dac12.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_dma.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_flashctl.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_sysctl.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/sysctl/dl_sysctl_mspm0g1x0x_g3x0x.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_gpamp.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_gpio.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_i2c.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_iwdt.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_lfss.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_keystorectl.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_lcd.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_mathacl.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_mcan.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_opa.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_rtc.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_rtc_common.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_rtc_a.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_rtc_b.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_scratchpad.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_spi.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_tamperio.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_timera.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_timer.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_timerg.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_trng.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_uart_extend.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_uart.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_uart_main.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_vref.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_wwdt.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_interrupt.h \
+ /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_systick.h
 
 /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/devices/msp/msp.h:
 
@@ -100,3 +146,95 @@ effects.o: ../effects.c \
 /Users/reneewrysinski/Documents/GitHub/fish-tank/effects.h:
 
 /Users/reneewrysinski/Documents/GitHub/fish-tank/buttons.h:
+
+/Users/reneewrysinski/Documents/GitHub/fish-tank/image_frames.h:
+
+/Users/reneewrysinski/Documents/GitHub/fish-tank/display.h:
+
+ti_msp_dl_config.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/driverlib.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_adc12.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_common.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_factoryregion.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_core.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_aes.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_aesadv.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_comp.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_crc.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_crcp.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_dac12.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_dma.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_flashctl.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_sysctl.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/sysctl/dl_sysctl_mspm0g1x0x_g3x0x.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_gpamp.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_gpio.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_i2c.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_iwdt.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_lfss.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_keystorectl.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_lcd.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_mathacl.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_mcan.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_opa.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_rtc.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_rtc_common.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_rtc_a.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_rtc_b.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_scratchpad.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_spi.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_tamperio.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_timera.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_timer.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_timerg.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_trng.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_uart_extend.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_uart.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_uart_main.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_vref.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/dl_wwdt.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_interrupt.h:
+
+/Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_systick.h:

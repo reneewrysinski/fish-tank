@@ -91,3 +91,4 @@ void show_swim(uint32_t loops);
 void show_feed(uint32_t loops);
 void show_sleep(uint32_t loops);
 void show_sleeping(uint32_t loops);
+void play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles);

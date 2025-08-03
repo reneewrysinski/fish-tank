@@ -29,11 +29,12 @@ int main(void)
     SYSCFG_DL_init();
     build_encode_lut();
     while (1) {
-            show_swim(2);
-            show_feed(1);
-            show_swim(2);
-            show_sleep(1);
-            show_sleeping(10);
+        play_game(12000000, 4000000);
+//            show_swim(2);
+//            show_feed(1);
+//            show_swim(2);
+//            show_sleep(1);
+//            show_sleeping(10);
 
     }
 }
