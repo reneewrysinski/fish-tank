@@ -30,6 +30,12 @@ static const uint8_t* FISH_FEED_FRAMES[] = {
     FISH_FEED_10, FISH_FEED_11, FISH_FEED_12, NULL
 };
 
+static const uint8_t* FISH_INTRO_FRAMES[] = {
+    FISH_INTRO_0, FISH_INTRO_1, FISH_INTRO_2, FISH_INTRO_3, FISH_INTRO_4,
+    FISH_INTRO_5, FISH_INTRO_6, FISH_INTRO_7, FISH_INTRO_8, FISH_INTRO_9,
+    FISH_INTRO_10, FISH_INTRO_11, FISH_INTRO_12, FISH_INTRO_13, NULL
+};
+
 static const uint8_t* FISH_GAME_FRAMES[] = {
     FISH_GAME_0, FISH_GAME_1, FISH_GAME_2, FISH_GAME_3, FISH_GAME_4,
     FISH_GAME_5, FISH_GAME_6, FISH_GAME_7, FISH_GAME_8, FISH_GAME_9,
@@ -88,7 +94,9 @@ static const uint8_t* GAME_LOSE[] = {
 
 uint8_t get_num_frames(const uint8_t** array);
 void show_swim(uint32_t loops);
+void show_swim_fast(uint32_t loops)
 void show_feed(uint32_t loops);
 void show_sleep(uint32_t loops);
 void show_sleeping(uint32_t loops);
-void play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles);
+void show_intro(uint32_t loops);
+int play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles);
