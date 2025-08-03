@@ -2,6 +2,8 @@
 #include "image_frames.h"
 #include "animations.h"
 #include "display.h"
+#include "lab6_helper.h"
+#include "effects.h"
 
 // test grid main
 //int main(void)
@@ -26,10 +28,16 @@
 // actual main
 int main(void)
 {
+    InitializeProcessor();
+    InitializeTimerG0();
+    InitializeGPIO();
+    NVIC_EnableIRQ(TIMG0_INT_IRQn); // Enable the timer interrupt
+    TIMG0->COUNTERREGS.LOAD = 326; // Set timer to N-1 for ten milliseconds
+    TIMG0->COUNTERREGS.CTRCTL |= (GPTIMER_CTRCTL_EN_ENABLED);
     SYSCFG_DL_init();
     build_encode_lut();
     while (1) {
-        play_game(12000000, 4000000);
+        play_game(20000000, 4000000);
 //            show_swim(2);
 //            show_feed(1);
 //            show_swim(2);
@@ -54,6 +62,19 @@ void SPI_0_INST_IRQHandler(void)
                     NVIC_DisableIRQ(SPI_0_INST_INT_IRQN);
                 }
             }
+            break;
+        default:
+            break;
+    }
+}
+
+void TIMG0_IRQHandler(void)
+{
+    // This wakes up the processor!
+
+    switch (TIMG0->CPU_INT.IIDX) {
+        case GPTIMER_CPU_INT_IIDX_STAT_Z: // Counted down to zero event.
+            timerTicked = 1; // set a flag so we can know what woke us up.
             break;
         default:
             break;

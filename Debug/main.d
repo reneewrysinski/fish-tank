@@ -77,7 +77,9 @@ main.o: ../main.c \
  /Users/reneewrysinski/ti/mspm0_sdk_2_03_00_07/source/ti/driverlib/m0p/dl_systick.h \
  /Users/reneewrysinski/Documents/GitHub/fish-tank/image_frames.h \
  /Users/reneewrysinski/Documents/GitHub/fish-tank/animations.h \
- /Users/reneewrysinski/Documents/GitHub/fish-tank/display.h
+ /Users/reneewrysinski/Documents/GitHub/fish-tank/display.h \
+ /Users/reneewrysinski/Documents/GitHub/fish-tank/lab6_helper.h \
+ /Users/reneewrysinski/Documents/GitHub/fish-tank/effects.h
 
 ti_msp_dl_config.h:
 
@@ -232,3 +234,7 @@ ti_msp_dl_config.h:
 /Users/reneewrysinski/Documents/GitHub/fish-tank/animations.h:
 
 /Users/reneewrysinski/Documents/GitHub/fish-tank/display.h:
+
+/Users/reneewrysinski/Documents/GitHub/fish-tank/lab6_helper.h:
+
+/Users/reneewrysinski/Documents/GitHub/fish-tank/effects.h:

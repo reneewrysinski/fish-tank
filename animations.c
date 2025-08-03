@@ -7,6 +7,7 @@
 #include "simon_random.h"
 #include "notes.h"
 #include "lab6_helper.h"
+#include <stdio.h>
 
 uint8_t frame_encoded[N_PIXELS * 9];
 
@@ -44,40 +45,46 @@ void play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles) {
     int seed = GenerateRandomNumber();
     srand(seed);
     // step 1
+//    printf("step 1 started!\n");
     play(GAME_INTRO, get_num_frames(GAME_INTRO), 1, long_delay_cycles);
     // step 2
+//    printf("step 2 started!\n");
     wait3(32767, FISH_GAME_1);
     // step 3
+    printf("step 3 started!\n");
     int SW1_pressed = button_on(SW1);
     int SW2_pressed = button_on(SW2);
     int SW3_pressed = button_on(SW3);
     int SW4_pressed = button_on(SW4);
     uint8_t chosen_spot = 0;
     if (SW1_pressed) {
-        play_note(NOTE_G_4, 20);
+//        play_note(NOTE_G_4, 20);
         play(GAME_HIDE_R, get_num_frames(GAME_HIDE_R), 1, long_delay_cycles);
         chosen_spot = 0;
     }
     else if (SW2_pressed) {
-        play_note(NOTE_E_4, 20);
+//        play_note(NOTE_E_4, 20);
         play(GAME_HIDE_Y, get_num_frames(GAME_HIDE_Y), 1, long_delay_cycles);
         chosen_spot = 1;
     }
     else if (SW3_pressed) {
-        play_note(NOTE_C_4, 20);
+//        play_note(NOTE_C_4, 20);
         play(GAME_HIDE_P, get_num_frames(GAME_HIDE_P), 1, long_delay_cycles);
         chosen_spot = 2;
     }
     else if (SW4_pressed) {
-        play_note(NOTE_G_3, 20);
+//        play_note(NOTE_G_3, 20);
         play(GAME_HIDE_G, get_num_frames(GAME_HIDE_G), 1, long_delay_cycles);
         chosen_spot = 3;
     }
     // step 4
+    printf("step 4 started!\n");
     uint8_t win_spot = rand();
     // step 5
+    printf("step 5 started!\n");
     play(GAME_WAVE, get_num_frames(GAME_WAVE), 1, short_delay_cycles);
     // step 6
+    printf("step 6 started!\n");
     if (win_spot == 0) {
         play(GAME_R_WIN, get_num_frames(GAME_R_WIN), 1, short_delay_cycles);
         delay_cycles(long_delay_cycles);
@@ -95,37 +102,38 @@ void play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles) {
         delay_cycles(long_delay_cycles);
     }
     // step 7
+    printf("step 7 started!\n");
     if (chosen_spot == win_spot) {
         // step 7a
         play(GAME_WIN, get_num_frames(GAME_WIN), 1, long_delay_cycles);
         // step 7b
-        play_note(NOTE_G_3, 10);
-        play_note(NOTE_C_4, 10);
-        play_note(NOTE_E_4, 10);
-        play_note(NOTE_G_4, 10);
-        play_note(NOTE_C_5, 10);
-        play_note(NOTE_E_5, 10);
-        play_note(NOTE_G_5, 30);
-        play_note(NOTE_E_5, 30);
-        play_note(NOTE_GS_3, 10);
-        play_note(NOTE_C_4, 10);
-        play_note(NOTE_DS_4, 10);
-        play_note(NOTE_GS_4, 10);
-        play_note(NOTE_C_5, 10);
-        play_note(NOTE_DS_5, 10);
-        play_note(NOTE_GS_5, 30);
-        play_note(NOTE_E_5, 30);
-        play_note(NOTE_AS_3, 10);
-        play_note(NOTE_D_4, 10);
-        play_note(NOTE_F_4, 10);
-        play_note(NOTE_AS_4, 10);
-        play_note(NOTE_D_5, 10);
-        play_note(NOTE_F_5, 10);
-        play_note(NOTE_AS_5, 30);
-        play_note(NOTE_AS_5, 10);
-        play_note(NOTE_AS_5, 10);
-        play_note(NOTE_AS_5, 10);
-        play_note(NOTE_C_6, 60);
+//        play_note(NOTE_G_3, 10);
+//        play_note(NOTE_C_4, 10);
+//        play_note(NOTE_E_4, 10);
+//        play_note(NOTE_G_4, 10);
+//        play_note(NOTE_C_5, 10);
+//        play_note(NOTE_E_5, 10);
+//        play_note(NOTE_G_5, 30);
+//        play_note(NOTE_E_5, 30);
+//        play_note(NOTE_GS_3, 10);
+//        play_note(NOTE_C_4, 10);
+//        play_note(NOTE_DS_4, 10);
+//        play_note(NOTE_GS_4, 10);
+//        play_note(NOTE_C_5, 10);
+//        play_note(NOTE_DS_5, 10);
+//        play_note(NOTE_GS_5, 30);
+//        play_note(NOTE_E_5, 30);
+//        play_note(NOTE_AS_3, 10);
+//        play_note(NOTE_D_4, 10);
+//        play_note(NOTE_F_4, 10);
+//        play_note(NOTE_AS_4, 10);
+//        play_note(NOTE_D_5, 10);
+//        play_note(NOTE_F_5, 10);
+//        play_note(NOTE_AS_5, 30);
+//        play_note(NOTE_AS_5, 10);
+//        play_note(NOTE_AS_5, 10);
+//        play_note(NOTE_AS_5, 10);
+//        play_note(NOTE_C_6, 60);
         // step 8a
         wait3(32767, FISH_GAME_20);
     }
@@ -133,16 +141,16 @@ void play_game(uint32_t long_delay_cycles, uint32_t short_delay_cycles) {
         // step 7a
         play(GAME_LOSE, get_num_frames(GAME_LOSE), 1, long_delay_cycles);
         // step 7b
-        play_note(NOTE_C_5, 15);
-        play_note(NOTE_A_4, 15);
-        play_note(NOTE_F_4, 15);
-        play_note(NOTE_A_4, 20);
-        play_note(NOTE_B_4, 20);
-        play_note(NOTE_A_4, 20);
-        play_note(NOTE_GS_4, 20);
-        play_note(NOTE_AS_4, 20);
-        play_note(NOTE_GS_4, 20);
-        play_note(NOTE_G_4, 60);
+//        play_note(NOTE_C_5, 15);
+//        play_note(NOTE_A_4, 15);
+//        play_note(NOTE_F_4, 15);
+//        play_note(NOTE_A_4, 20);
+//        play_note(NOTE_B_4, 20);
+//        play_note(NOTE_A_4, 20);
+//        play_note(NOTE_GS_4, 20);
+//        play_note(NOTE_AS_4, 20);
+//        play_note(NOTE_GS_4, 20);
+//        play_note(NOTE_G_4, 60);
         // step 8a
         wait3(32767, FISH_GAME_22);
     }

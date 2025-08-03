@@ -5,6 +5,7 @@
 #include "buttons.h"
 #include "image_frames.h"
 #include "display.h"
+#include <stdio.h>
 
 uint8_t frame_encoded[N_PIXELS * 9];
 
@@ -23,8 +24,11 @@ void pause(){
 //    idx = 1; // reset pointer to point at the second element of the SPI message
 //    SPI0->TXDATA = *txPacket; // This will start TX ISR running.
 //    // It will stop itself at the end of the message, and disable SPI interrupts.
-
+//    printf("in pause\n");
+    timerTicked = 0;
+//    printf("%d\n", timerTicked);
     while (!timerTicked) // Wait for timer wake up
+//        printf("waiting for interrupt or whateva\n");
         __WFI();
 
     timerTicked = 0; // reset timer interrupt flag
@@ -94,11 +98,18 @@ int wait2(int steps) {
 
 int wait3(int steps, const uint8_t *frame) {
     for (int i = 0; i < steps; i++) {
-        load_image_rgb(frame, IMG_W, IMG_H);
-        build_frame_from_image();
-        send_frame(frame_encoded, N_PIXELS * 9);
+//        printf("wait3ing\n");
+//        load_image_rgb(frame, IMG_W, IMG_H);
+//        build_frame_from_image();
+//        send_frame(frame_encoded, N_PIXELS * 9);
+//        printf("made it past the display shit\n");
+//        delay_cycles(4000);
+        pause();
         if (any_button_on()) {
             return 1;
+        }
+        else {
+            printf("no button pressed this time :(\n");
         }
     }
     return 0;
