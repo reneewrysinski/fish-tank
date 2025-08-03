@@ -1,7 +1,7 @@
 #include "ti_msp_dl_config.h"
 #include "image_frames.h"
 
-// === CHANGES: grid config
+// grid config
 #define W 16
 #define H 16
 #define N_PIXELS (W*H)
