@@ -94,7 +94,7 @@ static const uint8_t* GAME_LOSE[] = {
 
 uint8_t get_num_frames(const uint8_t** array);
 void show_swim(uint32_t loops);
-void show_swim_fast(uint32_t loops)
+void show_swim_fast(uint32_t loops);
 void show_feed(uint32_t loops);
 void show_sleep(uint32_t loops);
 void show_sleeping(uint32_t loops);
