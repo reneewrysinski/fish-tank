@@ -4,6 +4,7 @@
 #include "display.h"
 #include "lab6_helper.h"
 #include "effects.h"
+#include "buttons.h"
 
 // test grid main
 //int main(void)
@@ -26,6 +27,15 @@
 //}
 
 // actual main
+
+// states:
+// 0 = start up (only happens on startup)
+// 1 = swim (default state)
+// 2 = swim fast (only when SW1 held)
+// 3 = play game (after SW2 pressed until game exited)
+// 4 = feed (happens once when SW3 pressed then back to swim)
+// 5 = sleep (sleep animation happens once then stays in sleeping animation until button pressed)
+uint8_t state = 0;
 int main(void)
 {
     InitializeProcessor();
@@ -36,15 +46,83 @@ int main(void)
     TIMG0->COUNTERREGS.CTRCTL |= (GPTIMER_CTRCTL_EN_ENABLED);
     SYSCFG_DL_init();
     build_encode_lut();
+    uint8_t SW1_pressed = 0;
+    uint8_t SW2_pressed = 0;
+    uint8_t SW3_pressed = 0;
+    uint8_t SW4_pressed = 0;
     while (1) {
-        play_game(20000000, 4000000);
+        switch (state) {
+            case 0: // start up animation (only happens once on startup)
+                show_intro(1);
+                state = 1;
+                break;
+            case 1: // swim (default state)
+                while (1) {
+                    show_swim(1);
+                    if (any_button_on()) {
+                        SW1_pressed = button_on(SW1);
+                        SW2_pressed = button_on(SW2);
+                        SW3_pressed = button_on(SW3);
+                        SW4_pressed = button_on(SW4);
+                        if (SW1_pressed) {
+                            state = 2;
+                            break;
+                        }
+                        if (SW2_pressed) {
+                            state = 3;
+                            break;
+                        }
+                        if (SW3_pressed) {
+                            state = 4;
+                            break;
+                        }
+                        if (SW4_pressed) {
+                            state = 5;
+                            break;
+                        }
+                    }
+                }
+                break;
+            case 2: // swim fast (only when SW1 held)
+                while (1) {
+                    show_swim_fast(1);
+                    SW1_pressed = button_on(SW1);
+                    if (!SW1_pressed) {
+                        state = 1;
+                        break;
+                    }
+                }
+                break;
+            case 3: // play game (after SW2 pressed until game exited)
+                while (play_game(20000000, 4000000)) {}
+                state = 1;
+                break;
+            case 4: // feed (happens once when SW3 pressed then back to swim)
+                show_feed(1);
+                state = 1;
+                break;
+            case 5: // sleep (sleep animation happens once then stays in sleeping animation until any button pressed)
+                show_sleep(1);
+                while(1) {
+                    show_sleeping(1);
+                    if (any_button_on()) {
+                        state = 1;
+                        break;
+                    }
+                }
+                break;
+
+        }
+    }
+//  old while loop
+//    while (1) {
+//        play_game(20000000, 4000000);
 //            show_swim(2);
 //            show_feed(1);
 //            show_swim(2);
 //            show_sleep(1);
 //            show_sleeping(10);
-
-    }
+//    }
 }
 
 
