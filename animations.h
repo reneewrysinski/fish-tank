@@ -71,11 +71,11 @@ static const uint8_t* GAME_G_WIN[] = {
 };
 
 static const uint8_t* GAME_R_WIN[] = {
-    FISH_GAME_8, FISH_GAME_16, FISH_GAME_17, NULL
+    FISH_GAME_9, FISH_GAME_16, FISH_GAME_17, NULL
 };
 
 static const uint8_t* GAME_Y_WIN[] = {
-    FISH_GAME_8, FISH_GAME_18, FISH_GAME_19, NULL
+    FISH_GAME_9, FISH_GAME_18, FISH_GAME_19, NULL
 };
 
 static const uint8_t* GAME_WIN[] = {
