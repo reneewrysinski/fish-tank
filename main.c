@@ -5,11 +5,13 @@
 #define W 16
 #define H 16
 #define N_PIXELS (W*H)
+// started writing code before actually getting the grid and seeing what type it is so I gave myself ~options~
 #define SERPENTINE 1  // 1 = serpentine wiring, 0 = straight
+// wanna display this bad boy in a frame and might have to change the orientation to make wires nicer so we have ~options~ here as well
 #define STARTS_LEFT    0   // 1 = first LED is on the left edge of the first row; 0 = right edge
 #define TOP_TO_BOTTOM  1   // 1 = first row is the top row; 0 = first row is the bottom row
 
-// === CHANGES: encode LUT (byte -> 3 SPI bytes)
+// lookup table for all possible RGB to neopixel SPI bits so we aren't converting during
 static uint8_t ENC[256][3];
 static inline void build_encode_lut(void) {
     for (int v = 0; v < 256; ++v) {
@@ -27,7 +29,7 @@ static inline void build_encode_lut(void) {
 // 0 = off, 255 = full brightness
 static volatile uint8_t g_brightness = 16;  // start at ~50%
 
-// Fast 8-bit scale with rounding: (v * b) / 255
+// scale function for adjusting brightness
 static inline uint8_t scale8(uint8_t v, uint8_t b)
 {
     return (uint8_t)(((uint16_t)v * (uint16_t)b + 128) >> 8);
@@ -42,18 +44,18 @@ static inline void encode_pixel_GRB(const uint8_t grb[3], uint8_t *dst9){
     dst9[6]=ENC[B][0]; dst9[7]=ENC[B][1]; dst9[8]=ENC[B][2];
 }
 
-// === CHANGES: image + mapping
+// variables for raw grb image data and encoded to neopixel format data
 static uint8_t image_grb[N_PIXELS][3];            // GRB per pixel (input)
-static uint8_t frame_encoded[N_PIXELS * 9];       // encoded output (9 bytes/pixel)
+static uint8_t frame_encoded[N_PIXELS * 9];       // encoded output (9 bytes per pixel)
 
 static inline int map_xy_to_index(int x, int y)
 {
-    // Optionally flip coordinates based on start corner
+    // flip coordinates based on start corner
     int ry = TOP_TO_BOTTOM ? y : (H - 1 - y);
     int rx;
 
 #if SERPENTINE
-    // On serpentine panels, every other row reverses
+    // on serpentine panels, every other row reverses
     if (STARTS_LEFT) {
         // even rows L->R, odd rows R->L
         rx = (ry & 1) ? (W - 1 - x) : x;
@@ -62,7 +64,7 @@ static inline int map_xy_to_index(int x, int y)
         rx = (ry & 1) ? x : (W - 1 - x);
     }
 #else
-    // Straight wiring (every row same direction)
+    // straight wiring (every row same direction)
     rx = STARTS_LEFT ? x : (W - 1 - x);
 #endif
 
@@ -108,11 +110,11 @@ void show_feed(uint32_t loops);
 void show_sleep(uint32_t loops);
 void show_sleeping(uint32_t loops);
 
-// Copy an RGB888 image (R,G,B order) into image_grb[] honoring serpentine mapping.
-// If the source image (srcW×srcH) differs from panel (W×H), this will center and crop.
-static void load_image_rgb888(const uint8_t *src, int srcW, int srcH)
+// copy an RGB image (R,G,B order) into image_grb[]
+// to-do: maybe get rid of src stuff to simplify, we simply will not give it the wrong size image
+static void load_image_rgb(const uint8_t *src, int srcW, int srcH)
 {
-    // Compute top-left where the source maps on our panel (centered)
+    // compute top-left where the source maps on our panel (centered)
     int x0 = (W - srcW) / 2;
     int y0 = (H - srcH) / 2;
 
@@ -120,17 +122,17 @@ static void load_image_rgb888(const uint8_t *src, int srcW, int srcH)
         for (int x = 0; x < W; ++x) {
             uint8_t r = 0, g = 0, b = 0;
 
-            // If (x,y) falls inside the source image region, sample it; else black.
+            // if (x,y) falls inside the source image region, sample it, if not, black
             int sx = x - x0;
             int sy = y - y0;
             if ((unsigned)sx < (unsigned)srcW && (unsigned)sy < (unsigned)srcH) {
-                int sidx = (sy * srcW + sx) * 3; // RGB888 stride
+                int sidx = (sy * srcW + sx) * 3;
                 r = src[sidx + 0];
                 g = src[sidx + 1];
                 b = src[sidx + 2];
             }
 
-            // Store in GRB order for WS2812
+            // store in GRB order for neopixel
             int i = y * W + x;
             image_grb[i][0] = g;
             image_grb[i][1] = r;
@@ -139,17 +141,16 @@ static void load_image_rgb888(const uint8_t *src, int srcW, int srcH)
     }
 }
 
-// === ORIGINAL globals, lightly adjusted
 uint8_t *txPacket;
 
 volatile int transmissionComplete = 0;
 volatile int idx = 0;
 volatile int repeat = 0;
 
-// === CHANGES: send each frame once
+// how many times to send each frame
 volatile int n_repeats = 1;
 
-// === CHANGES: message_len will be N_PIXELS*9 for the frame
+// will be set to N_PIXELS * 9
 int message_len = 0;
 
 static void send_frame(uint8_t *buf, int len) {
@@ -160,10 +161,10 @@ static void send_frame(uint8_t *buf, int len) {
     message_len = len;
     NVIC_ClearPendingIRQ(SPI_0_INST_INT_IRQN);
     NVIC_EnableIRQ(SPI_0_INST_INT_IRQN);
-    DL_SPI_transmitData8(SPI_0_INST, txPacket[0]); // kick off first byte
+    DL_SPI_transmitData8(SPI_0_INST, txPacket[0]); // first byte
     while (!transmissionComplete) __WFI();
 
-    // WS2812 reset/latch low time (>50us). Adjust for your clock.
+    // delay before sending again
     delay_cycles(400000);
 }
 
@@ -172,29 +173,28 @@ static void send_frame(uint8_t *buf, int len) {
 //{
 //    SYSCFG_DL_init();
 //
-//    // === CHANGES: one-time LUT and initial image
 //    build_encode_lut();
-//    load_image_rgb888(IMG_RGB888_HALF, IMG_W, IMG_H);
+//    load_image_rgb(IMG_RGB888_HALF, IMG_W, IMG_H);
 //    build_frame_from_image();
 //    send_frame(frame_encoded, N_PIXELS * 9);
 //
 //    while (1) {
-//        // === CHANGES: transmit full image once
+//        // transmit full image once
 //        send_frame(frame_encoded, N_PIXELS * 9);
 //
-//        // If static image, you can pause or loop.
-//        // For animation, update image_grb[], rebuild, and send again.
+//        // if static image, can pause or loop
+//        // for animation, update image_grb[], rebuild, and send again
 //        delay_cycles(400000); // simple pause between frames
 //    }
 //}
 
-// main that displays fish sleep animation
+// actual main
 int main(void)
 {
     SYSCFG_DL_init();
     build_encode_lut();
     while (1) {
-            show_swim(2);  // e.g., 2 cycles
+            show_swim(2);
             show_feed(1);
             show_swim(2);
             show_sleep(1);
@@ -203,13 +203,13 @@ int main(void)
     }
 }
 
-// base function for showing basic animations (all except game)
+// base function for showing basic animations since they all basically do the same (all except game)
 static void play(const uint8_t* const frames[], uint32_t count,
                  uint32_t loops, uint32_t frame_delay_cycles)
 {
     for (uint32_t l = 0; l < loops; ++l) {
         for (uint32_t frame = 0; frame < count; ++frame) {
-            load_image_rgb888(frames[frame], IMG_W, IMG_H);
+            load_image_rgb(frames[frame], IMG_W, IMG_H);
             build_frame_from_image();
             send_frame(frame_encoded, N_PIXELS * 9);
             delay_cycles(frame_delay_cycles);
