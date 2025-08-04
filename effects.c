@@ -78,6 +78,7 @@ void buzzer_off(){
 //
 //}
 
+// play note
 int play_note(float note, int duration) {
     set_buzzer_freq(note);
     if (wait2(duration))
@@ -88,6 +89,7 @@ int play_note(float note, int duration) {
     return 0;
 }
 
+// wait for set duration
 int wait2(int steps) {
     for (int i = 0; i < steps; i++) {
         pause();
@@ -96,6 +98,7 @@ int wait2(int steps) {
 
 }
 
+// wait for any button to be pressed
 int wait3(int steps, const uint8_t *frame) {
     for (int i = 0; i < steps; i++) {
 //        printf("wait3ing\n");
@@ -108,9 +111,9 @@ int wait3(int steps, const uint8_t *frame) {
         if (any_button_on()) {
             return 1;
         }
-        else {
-            printf("no button pressed this time :(\n");
-        }
+        // else {
+        //     printf("no button pressed this time :(\n");
+        // }
     }
     return 0;
 }

@@ -19,7 +19,7 @@ uint8_t get_num_frames(const uint8_t** array){
     return i;
 }
 
-// base function for showing basic animations since they all basically do the same (all except game)
+// base function for showing basic animations since they all basically do the same thing (all except game)
 void play(const uint8_t* frames[], uint32_t count,
                  uint32_t loops, uint32_t frame_delay_cycles)
 {

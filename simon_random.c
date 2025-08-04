@@ -45,6 +45,7 @@ uint16_t rand() {
     return lfsr & 0x03;
 }
 
+// moved into this file from simon.c
 uint32_t GenerateRandomNumber()
 {
     int randomNumber = 0;
