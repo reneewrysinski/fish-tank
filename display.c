@@ -50,7 +50,7 @@ void encode_pixel_GRB(const uint8_t grb[3], uint8_t *dst9){
     dst9[6]=ENC[B][0]; dst9[7]=ENC[B][1]; dst9[8]=ENC[B][2];
 }
 
-// positioning type shit
+// positioning type stuff
 int map_xy_to_index(int x, int y)
 {
     // flip coordinates based on start corner
