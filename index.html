@@ -75,13 +75,7 @@
           </header>
 
           <article class="post-content">
-            <p><img src="https://eliottvincent.github.io/bay/assets/img/content/post-example/Banner.jpg" alt="bay" class="post-pic">
-            <br>
-            <br></p>
-
-            <p>This is an example of blog post.
-            Picture by <a href="https://unsplash.com/@bkotynski">Bethany Legg</a>.</p>
-            <p><br></p>
+            <p><img src="/site-images/image3.jpg" alt="Neopixel grid displaying fish" class="post-pic">
 
             <h4 id="table-of-contents">Table of Contents</h4>
             <ol>
@@ -102,17 +96,41 @@
 
             <h4 id="des-evo">DESIGN CONCEPT EVOLUTION</h4>
             <p>For our final project, we initially hoped to recreate a pocket sized game we all love, the Tamagotchi. A Tamagotchi is a small handheld digital pet where the player cares for a virtual creature by feeding it, playing with it, and cleaning up after it. If neglected, the pet can become unhappy or even "die," encouraging the player to check in regularly and be responsible. For this design, we had planned to recreate the pixel art that is traditionally featured on Tamagotchis, as well as 3D-print the egg-shaped case shown on the right below. Unfortunately, our Tamagotchi plan had to be scrapped, as we faced substantial challenges in its execution, especially regarding communicating with the screen due to poor documentation of its use of SPI. As such, we pivoted to a second design, The Oracle.
-            <!-- add images here -->
+              <div class="wrapper" style="text-align: center;">
+                <figure style="display: inline-block; width: 45%; margin: 0 2%;">
+                  <img src="site-images/image4.jpg" alt="tamagotchi pcb built by group">
+                  <figcaption>Tamagotchi PCB Built</figcaption>
+                </figure>
+                <figure style="display: inline-block; width: 35%; margin: 0 2%;">
+                  <img src="/site-images/image2.png" alt="actual tamagotchi">
+                  <figcaption>Actual Tamagotchi</figcaption>
+                </figure>
+              </div>
             <p>The Oracle is a low-power, closed-loop embedded system based on the MSP microcontroller, designed to provide an interactive fortune-telling and karma-evaluation experience through three push-buttons and six 7-segment displays. Operating primarily in a sleep state with periodic or button-triggered wakeups via timer interrupts, the system features a debounced multi-press button interface for navigating a simple three-option menu: fortune telling using true random number generation, wish fulfillment from predefined categories, and karma evaluation based on user input patterns. When idle, it displays an “ASLEEP” animation and wakes on button press to enter the “AWAKE” state. Designed for resource-constrained environments, The Oracle balances playfulness with low-power efficiency.</p>
-            <!-- add images here -->
+            <div class="wrapper" style="text-align: center;">
+              <figure style="display: inline-block; width: 85%; margin: 0 2%;">
+                <img src="site-images/image1.png" alt="schematic of oracle">
+                <figcaption>Schematic Diagram of Oracle PCB</figcaption>
+              </figure>
+            </div>
+            
              <p>Despite extensive work on the development of scripts for the Oracle and debugging, we switched to our third design, the fish tank, due to our microcontroller overheating. This issue arose because we were attempting to power all six 7-segment LEDs with the microcontroller, which was more than what it could handle. Using the Simon and a Neopixel LED grid, we created a display of a fish virtual pet comparable to our original goal. </p>
             <h4 id="bhvr-fsm">BEHAVIOR AND STATE MACHINE</h4>
               <p>When you power the tank on, it kicks off in the Intro (State 0) where an intro animation is displayed. As soon as that animation wraps up, the code drops you straight into Swim (State 1), the “home base” where your fish idle swims. While it’s swimming at a normal pace, the game is always waiting for button presses. Hit SW1 and the fish bursts into Swim Fast (State 2), zooming around until the button is no longer pressed. Pressing SW2 while the fish is swimming will launch the Play Game state (State 3); at the end of each round, pressing the buttons on the right (SW1 or SW2) restarts the game, and pressing the buttons on the left (SW3 or SW4) send it back to the main swimming screen. Press SW3 and you jump into Feed (State 4), where the fish nibbles pellets and once that sequence ends, you’re right back to Swim. Finally, a press of SW4 sends the fish off to Sleep (State 5), dimming the scene and settling your little friend down—any button press then wakes it up and resumes the Swim state. In every case, after any action completes you return to the easygoing Swim (State 1) as shown in the diagram below.</p>
-            <!-- add images here -->
+              <div class="wrapper" style="text-align: center;">
+                <figure style="display: inline-block; width: 85%; margin: 0 2%;">
+                  <img src="site-images/image5.jpg" alt="state diagram for finite state machine">
+                  <figcaption>State Diagram</figcaption>
+                </figure>
+              </div>
               <p>	The Play Game state is the most complicated of all six states, as instead of displaying a simple animation, it has to receive inputs from all four buttons and the random number generator, and display different animations based on these inputs. In the game, the fish is given a choice of four hiding spots, and has to choose one to hide in. After a hiding spot is chosen, three of the four hiding spots are removed. If your chosen hiding spot is the one remaining, you win and are shown a winning animation and are played a cheery song; if your hiding spot is removed, you lose and are shown a losing animation and are played a sad tune. </p>
 
             <h4 id="hdwr-des">HARDWARE DESIGN DESCRIPTION</h4>
-            <!-- add text and images here -->
+            <div class="wrapper" style="text-align: center;">
+              <figure style="display: inline-block; width: 95%; margin: 0 2%;">
+                <img src="site-images/image6.jpg" alt="image of hardware setup">
+              </figure>
+            </div>
             <p>Microcontroller: MSPM0G3507</p>
             <ul>
               <li>32 MHz SYSOSC clock, low-power sleep via WFI</li>
@@ -181,6 +199,13 @@
             <p>To implement this fish tank, we had to utilize a 16x16 Neopixel grid. We were provided with example code to flash an 8x8 Neopixel grid on and off, but had to adapt this code to work with a larger grid and also create a variety of functions to display simple 16x16 pixel art on this LED grid. This grid is connected to the SPI pins of the MSPM0G3507, but does not communicate using a typical SPI protocol; the bits must be encoded before being sent. In this encoding, every 1 bit becomes 3 bits, with 1 becoming 110 and 0 becoming 100.</p>
 
             <h4 id="add-links">ADDITIONAL LINKS</h4>
+
+            <ul>
+              <li>Main GitHub: </li>
+              <li>Video Demos: </li>
+              <li></li>
+              <li>MSPM0 Code: </li>
+            </ul>
 
                     </article>
 
