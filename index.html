@@ -63,10 +63,11 @@
         <div class="post">
 
           <header class="post-header">
+            ELEC 327 Final Project: 
             <h1 class="post-title">
-            Fish Tank
+            Digital Desktank
             </h1>
-            <h1 class="post-subtitle">A closed-loop embedded system using MSPM0.</h1>
+            <h1 class="post-subtitle">Interactive desktop fish tank implemented with an MSPM0-based closed-loop embedded system.</h1>
             <!-- {% if page.subtitle %}<h1 class="post-subtitle">{{ page.subtitle }}</h1>{% endif %} -->
             <p class="post-meta"><span class="post-date">August 3, 2025
             </span><span class="post-author"><br>Renee Wrysinski, Paulina Arizpe-Romo, 
@@ -80,56 +81,106 @@
 
             <p>This is an example of blog post.
             Picture by <a href="https://unsplash.com/@bkotynski">Bethany Legg</a>.</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
-
             <p><br></p>
 
             <h4 id="table-of-contents">Table of Contents</h4>
             <ol>
-            <li><a href="#part-1">Part 1</a></li>
-            <li><a href="#part-2">Part 2</a>
+            <li><a href="#concept-desc">Concept Description</a></li>
+            <li><a href="#des-evo">Design Concept Evolution</a></li>
+            <li><a href="#bhvr-fsm">Behavior and State Machine</a></li>
+            <li><a href="#hdwr-des">Hardware Design Description</a></li>
+            <li><a href="#code-arch">Code Architecture</a></li>
+            <li><a href="#pedagogy">Pedagogical Insights</a></li>
+            <li><a href="#add-links">Additional Links</a></li>
+
+            </ol>
+
+            <h4 id="concept-desc">CONCEPT DESCRIPTION</h4>
+            <p>This project is an interactive desktop fish tank created using an MSPM03507 and 16x16 Neopixel LED grid. By default, the fish simply swims around its tank, but you can play and interact with it: you can make it race around its tank, feed it, 
+              make it go to sleep, or even play a fun game with it! In addition to displaying fun animations, it also plays tunes using a PWM-controlled buzzer when you perform certain interactions. 
+            <br></p>
+
+            <h4 id="des-evo">DESIGN CONCEPT EVOLUTION</h4>
+            <p>For our final project, we initially hoped to recreate a pocket sized game we all love, the Tamagotchi. A Tamagotchi is a small handheld digital pet where the player cares for a virtual creature by feeding it, playing with it, and cleaning up after it. If neglected, the pet can become unhappy or even "die," encouraging the player to check in regularly and be responsible. For this design, we had planned to recreate the pixel art that is traditionally featured on Tamagotchis, as well as 3D-print the egg-shaped case shown on the right below. Unfortunately, our Tamagotchi plan had to be scrapped, as we faced substantial challenges in its execution, especially regarding communicating with the screen due to poor documentation of its use of SPI. As such, we pivoted to a second design, The Oracle.
+            <!-- add images here -->
+            <p>The Oracle is a low-power, closed-loop embedded system based on the MSP microcontroller, designed to provide an interactive fortune-telling and karma-evaluation experience through three push-buttons and six 7-segment displays. Operating primarily in a sleep state with periodic or button-triggered wakeups via timer interrupts, the system features a debounced multi-press button interface for navigating a simple three-option menu: fortune telling using true random number generation, wish fulfillment from predefined categories, and karma evaluation based on user input patterns. When idle, it displays an “ASLEEP” animation and wakes on button press to enter the “AWAKE” state. Designed for resource-constrained environments, The Oracle balances playfulness with low-power efficiency.</p>
+            <!-- add images here -->
+             <p>Despite extensive work on the development of scripts for the Oracle and debugging, we switched to our third design, the fish tank, due to our microcontroller overheating. This issue arose because we were attempting to power all six 7-segment LEDs with the microcontroller, which was more than what it could handle. Using the Simon and a Neopixel LED grid, we created a display of a fish virtual pet comparable to our original goal. </p>
+            <h4 id="bhvr-fsm">BEHAVIOR AND STATE MACHINE</h4>
+              <p>When you power the tank on, it kicks off in the Intro (State 0) where an intro animation is displayed. As soon as that animation wraps up, the code drops you straight into Swim (State 1), the “home base” where your fish idle swims. While it’s swimming at a normal pace, the game is always waiting for button presses. Hit SW1 and the fish bursts into Swim Fast (State 2), zooming around until the button is no longer pressed. Pressing SW2 while the fish is swimming will launch the Play Game state (State 3); at the end of each round, pressing the buttons on the right (SW1 or SW2) restarts the game, and pressing the buttons on the left (SW3 or SW4) send it back to the main swimming screen. Press SW3 and you jump into Feed (State 4), where the fish nibbles pellets and once that sequence ends, you’re right back to Swim. Finally, a press of SW4 sends the fish off to Sleep (State 5), dimming the scene and settling your little friend down—any button press then wakes it up and resumes the Swim state. In every case, after any action completes you return to the easygoing Swim (State 1) as shown in the diagram below.</p>
+            <!-- add images here -->
+              <p>	The Play Game state is the most complicated of all six states, as instead of displaying a simple animation, it has to receive inputs from all four buttons and the random number generator, and display different animations based on these inputs. In the game, the fish is given a choice of four hiding spots, and has to choose one to hide in. After a hiding spot is chosen, three of the four hiding spots are removed. If your chosen hiding spot is the one remaining, you win and are shown a winning animation and are played a cheery song; if your hiding spot is removed, you lose and are shown a losing animation and are played a sad tune. </p>
+
+            <h4 id="hdwr-des">HARDWARE DESIGN DESCRIPTION</h4>
+            <!-- add text and images here -->
+            <p>Microcontroller: MSPM0G3507</p>
+            <ul>
+              <li>32 MHz SYSOSC clock, low-power sleep via WFI</li>
+            </ul>
+            <p>Inputs: Four momentary push-buttons (SW1, SW2, SW3, SW4)</p>
+            <p>Outputs:</p>
+            <ul>
+              <li>16x16 Neopixel LED Grid (WS2812B)</li>
+              <li>Buzzer PWM on Timer A1 channel: audible feedback</li>
+            </ul>
+            <p>Power:</p>
+            <ul>
+              <li>Microcontroller powered by onboard 3.3V regulator</li>
+              <li>LED grid powered by USB or external batteries connected to Simon board</li>
+            </ul>
+
+            <h4 id="code-arch">CODE ARCHITECTURE</h4>
+            <!-- add text and images here -->
+            <ul>
+              <li>main.c:</li>
                 <ul>
-                <li><a href="#part-2-sub-part-1">Part 2 Sub-part 1</a></li>
-                <li><a href="#part-2-sub-part-2">Part 2 Sub-part 2</a></li>
+                  <li>contains state machine determining behavior of fish</li>
+                  <li>uses functions defined in various helper files to obtain desired behavior</li>
                 </ul>
-            </li>
-            <li><a href="#footnotes">Footnotes</a></li>
-            </ol>
+              <li>display.c</li>
+                <ul>
+                  <li>ccontains functions to take RGB arrays from image_frames.h and convert these to SPI packets, then send them to Neopixel grid</li>
+                </ul>
+              <li>animations.c</li>
+                <ul>
+                  <li>contains functions to create animations from frames contained in image_frames.h</li>
+                    <ul>
+                      <li>simple animations such as Intro, Swim, Feed, Sleep are just a series of frames</li>
+                      <li>behavior of game is determined by play_game() function, which plays different animations based on inputs from buttons and random number generator</li>
+                    </ul>
+                </ul>
+              <li>buttons.c:</li>
+                <ul>
+                  <li>contains functions to interact with buttons on Simon board</li>
+                </ul>
+              <li>effects.c</li>
+                <ul>
+                  <li>contains buzzer control functions and different types of delays (wait for set period, wait until button press, etc.)</li>
+                </ul>
+              <li>lab6_helper.c</li>
+                <ul>
+                  <li>slightly modified helper functions from Lab 6</li>
+                  <li>functions to initialize timer, processor, GPIO, PWM, SPI</li>
+                </ul>
+              <li>simon_random.c:</li>
+                <ul>
+                  <li>slightly modified random number generator from Simon midterm project</li>
+                </ul>
+              <li>image_frames.h</li>
+                <ul>
+                  <li>contains RGB arrays of frames for animations</li>
+                </ul>
+              <li>notes.h</li>
+                <ul>
+                  <li>contains defined notes for playing music on buzzer</li>
+                </ul>
+            </ul>
 
-            <h4 id="part-1">PART 1</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            <br></p>
+            <h4 id="pedagogy">PEDAGOGICAL INSIGHTS</h4>
+            <!-- add text and images here -->
+            <p>To implement this fish tank, we had to utilize a 16x16 Neopixel grid. We were provided with example code to flash an 8x8 Neopixel grid on and off, but had to adapt this code to work with a larger grid and also create a variety of functions to display simple 16x16 pixel art on this LED grid. This grid is connected to the SPI pins of the MSPM0G3507, but does not communicate using a typical SPI protocol; the bits must be encoded before being sent. In this encoding, every 1 bit becomes 3 bits, with 1 becoming 110 and 0 becoming 100.</p>
 
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <p><br>
-            <br></p>
-
-            <h4 id="part-2">PART 2</h4>
-            <p><strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-            <p><br></p>
-
-            <h5 id="part-2-sub-part-1">PART 2 SUB PART 1</h5>
-            <p><em>Duis aute irure dolor in reprehenderit</em> in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <p><br></p>
-
-            <h5 id="part-2-sub-part-2">PART 2 SUB PART 2</h5>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <p><br></p>
-
-            <h5 id="footnotes">FOOTNOTES</h5>
-
-            <div class="footnotes" role="doc-endnotes">
-            <ol>
-                <li id="fn:1">
-                <p>This is a note!&nbsp;<a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
-                </li>
-            </ol>
-            </div>
+            <h4 id="add-links">ADDITIONAL LINKS</h4>
 
                     </article>
 
